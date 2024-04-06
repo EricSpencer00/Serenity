@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health App</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header>
+        <h1></h1>
+        <div class="hamburger-menu" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div id="google-signin-button"></div>
+        
+
+    </header>
+    <main>
+        <div class="prompt-container">
+            <h2>How are you feeling today?</h2>
+            <form id="prompt-form">
+                <textarea id="answer" name="answer" rows="16" required></textarea>
+                <label for="zip-code">Enter your zip code (optional):</label>
+                <input type="text" id="zip-code" name="zip-code">
+                <label for="mood">Select your mood to submit:</label>
+                <div class="mood" id="mood" name="mood" required>
+                    <button class="mood-btn" value="very-sad">😢</button>
+                    <button class="mood-btn" value="sad">😞</button>
+                    <button class="mood-btn" value="neutral">😐</button>
+                    <button class="mood-btn" value="happy">😊</button>
+                    <button class="mood-btn" value="very-happy">😄</button>
+                </div>
+            </form>
+        </div>
+        <div id="weather-container">
+            <!-- Weather information will be displayed here -->
+        </div>
+        <div id="answers-container">
+            <!-- Answers will be displayed here -->
+        </div>
+    </main>
+    <footer>
+        <p></p>
+    </footer>
+    <script src="index.js"></script>
+    <script src="writeAnswer.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script>
+        function start() {
+          // 2. Initialize the JavaScript client library.
+          gapi.client.init({
+            'apiKey': 'AIzaSyBlH8IUr1rwChzSO2OcUHEHttfrvi5NPjQ',
+            // Your API key will be automatically added to the Discovery Document URLs.
+            'discoveryDocs': ['https://people.googleapis.com/$discovery/rest'],
+            // clientId and scope are optional if auth is not required.
+            'clientId': 'YOUR_WEB_CLIENT_ID.apps.googleusercontent.com',
+            'scope': 'profile',
+          }).then(function() {
+            // 3. Initialize and make the API request.
+            return gapi.client.people.people.get({
+              'resourceName': 'people/me',
+              'requestMask.includeField': 'person.names'
+            });
+          }).then(function(response) {
+            console.log(response.result);
+          }, function(reason) {
+            console.log('Error: ' + reason.result.error.message);
+          });
+        };
+        // 1. Load the JavaScript client library.
+        gapi.load('client', start);
+    </script>
+      
+</body>
+</html>
+
+
+
+
+

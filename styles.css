@@ -1,0 +1,81 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* Navbar styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    color: #30d158; /* Serenity logo color */
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-links .nav-link {
+    text-decoration: none;
+    color: #333;
+    margin-left: 20px;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #94a9bf;
+}
+
+.login {
+    border: 1px solid #007AFF;
+    padding: 5px 15px;
+    border-radius: 5px;
+}
+
+main {
+    height: calc(100vh - 60px); /* Adjust height based on the header size */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; /* Align items to the start (left) */
+    padding-left: 20px; /* Add some padding on the left */
+    background-color: #f9f9f9;
+}
+
+.intro-text {
+    max-width: 600px; /* Set a max-width for the content if desired */
+}
+
+.intro-text h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+    text-align: left; /* Text align left */
+}
+
+.intro-text p {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #666;
+    text-align: left; /* Text align left */
+}
+
+footer {
+    background: #f9f9f9;
+    text-align: center;
+    padding: 1rem 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    margin: 0;
+    color: #666;
+}
