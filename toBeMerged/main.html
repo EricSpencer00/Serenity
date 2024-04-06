@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How Are You Feeling?</title>
+</head>
+<body>
+  <a href="login.html">Login</a>
+  <br/>
+  <a href="registration.html">Registration</a>
+  <br/>
+  <a href="index.html">Landing</a>
+  <br/>
+  <br/>
+  <h3 id="user-name">Hello, </h3>
+  <h2>How Are You Feeling?</h2>
+  
+
+  
+  <form id="feeling-form">
+    <label for="score">Select a score from 1 to 5:</label><br>
+    <select id="score" name="score" required>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <p id="mydata" type="text">No feeling scores found!</p>
+
+  <h1>Community Messages</h1>
+
+  <form id="message-form">
+    <label for="message">Your Message:</label><br>
+    <textarea id="message" name="message" rows="4" cols="50" required></textarea><br>
+    <button type="submit">Submit Message</button>
+  </form>
+
+  <p id="communitymessages" type="text">No community messages found!</p>
+
+
+  <!-- Import Firebase SDK -->
+  <script type="module" src="scripts/main.js"></script>
+</body>
+</html>
