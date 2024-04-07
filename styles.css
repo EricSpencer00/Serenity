@@ -53,6 +53,16 @@ main {
     align-items: flex-start; /* Align items to the start (left) */
     padding-left: 20px; /* Add some padding on the left */
     background-color: #f9f9f9;
+    background-image: url('images/homepage.png');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+main::before {
+    content: '';
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
 }
 
 .intro-text {
@@ -70,6 +80,7 @@ main {
     margin-bottom: 20px;
     color: #666;
     text-align: left; /* Text align left */
+    padding: 10px 10px 10px 10px;
 }
 
 footer {
