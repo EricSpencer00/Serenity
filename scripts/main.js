@@ -94,44 +94,44 @@ feelingForm.addEventListener('submit', async (e) => {
   }
 });
 
-var mydata = document.getElementById("mydata");
+// var mydata = document.getElementById("mydata");
 
-function getFeelingScores() {
-  auth.onAuthStateChanged((user) => {
-    if (user) {
+// function getFeelingScores() {
+//   auth.onAuthStateChanged((user) => {
+//     if (user) {
 
-        const orderedRef = query(ref(db, `users/${user.uid}/feelingScores`), orderByChild('date'));
+//         const orderedRef = query(ref(db, `users/${user.uid}/feelingScores`), orderByChild('date'));
         
-        onValue(orderedRef, (snapshot) => {
-            let feelingScoresHTML = "";
-            console.log("Snapshot exists? " + snapshot.exists());
-            if (snapshot.exists()) {
-                snapshot.forEach((childSnapshot) => {
-                    const childData = childSnapshot.val();
-                    feelingScoresHTML += "Date: " + childData.date;
-                    feelingScoresHTML += ", feeling score: " + childData.score;
-                    feelingScoresHTML += "<br/>";
-                });
-            }
-            if (snapshot.exists()) {
-                mydata.innerHTML = feelingScoresHTML;
-                // mydata.innerHTML = feelingScoresHTML + "<br/>Click \"GET DATA\" to update feeling scores!";
-                // alert("Data retrieved successfully");
-            } else {
-                // mydata.innerHTML = "Click \"GET DATA\" to view feeling scores!";
-            }
-        }, {
-            onlyOnce: true
-        }, (error) => {
-            alert("Unsuccessful, error: " + error);
-        });
-    } else {
-        console.error('No user signed in.'); // Handle the case where there is no signed-in user
-    }
-  })
-};
+//         onValue(orderedRef, (snapshot) => {
+//             let feelingScoresHTML = "";
+//             console.log("Snapshot exists? " + snapshot.exists());
+//             if (snapshot.exists()) {
+//                 snapshot.forEach((childSnapshot) => {
+//                     const childData = childSnapshot.val();
+//                     feelingScoresHTML += "Date: " + childData.date;
+//                     feelingScoresHTML += ", feeling score: " + childData.score;
+//                     feelingScoresHTML += "<br/>";
+//                 });
+//             }
+//             if (snapshot.exists()) {
+//                 mydata.innerHTML = feelingScoresHTML;
+//                 // mydata.innerHTML = feelingScoresHTML + "<br/>Click \"GET DATA\" to update feeling scores!";
+//                 // alert("Data retrieved successfully");
+//             } else {
+//                 // mydata.innerHTML = "Click \"GET DATA\" to view feeling scores!";
+//             }
+//         }, {
+//             onlyOnce: true
+//         }, (error) => {
+//             alert("Unsuccessful, error: " + error);
+//         });
+//     } else {
+//         console.error('No user signed in.'); // Handle the case where there is no signed-in user
+//     }
+//   })
+// };
 
-getFeelingScores();
+// getFeelingScores();
 
 function addCommunityMessage(messageContent) {
   return new Promise((resolve, reject) => {

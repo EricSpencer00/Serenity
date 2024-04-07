@@ -40,7 +40,19 @@
     <button type="submit">Submit</button>
   </form>
 
-  <p id="mydata" type="text">No feeling scores found!</p>
+  <!-- <p id="mydata" type="text">No feeling scores found!</p> -->
+
+  <body id="chart-container">
+    <canvas id="myChart" width="30vh" height="30vh"></canvas>
+  </body>
+  
+
+  <h2>Today's Goals</h2>
+  <ul id="goals-list">
+    <!-- Existing goals will be added here dynamically -->
+  </ul>
+  <input type="text" id="new-goal-input" placeholder="Enter new goal">
+  <button id="add-goal-btn">Add Goal</button>
 
   <h1>Community Messages</h1>
 
@@ -53,12 +65,10 @@
 
   <p id="communitymessages" type="text">No community messages found!</p>
 
-  <body id="chart-container">
-    <canvas id="myChart" width="30vh" height="30vh"></canvas>
-  </body>
+
   
   
-  
+  <script type="module" src="scripts/goals.js"></script>
   <script type="module" src="scripts/chart.js"></script>
   <script type="module" src="scripts/main.js"></script>
   <script type="module" src="scripts/logout.js"></script>
