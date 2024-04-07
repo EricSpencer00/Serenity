@@ -14,6 +14,7 @@ registrationForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
   // Get form values
+  const name = registrationForm['name'].value;
   const email = registrationForm['email'].value;
   const password = registrationForm['password'].value;
   const zipCode = registrationForm['zip'].value;
@@ -24,10 +25,12 @@ registrationForm.addEventListener('submit', (e) => {
       // User registered successfully
       const user = userCredential.user;
       console.log("User registered:", user.uid);
-      window.location.href = 'main.html';
+      // Redirect to main.html
+      
       
       // Store additional user information in Firebase Database
       set(ref(db, 'users/' + user.uid), {
+        name: name,
         email: email,
         zipCode: zipCode
         // Add more fields as needed
@@ -35,6 +38,7 @@ registrationForm.addEventListener('submit', (e) => {
       .then(() => {
         console.log('User information stored successfully');
         // You can redirect to another page after successful registration
+        window.location.href = 'main2.html';
       })
       .catch((error) => {
         console.error('Error storing user information:', error);

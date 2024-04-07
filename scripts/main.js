@@ -3,13 +3,41 @@ import { firebaseApp } from './firebase-config.js';
 import { getDatabase, orderByChild, query, onValue, ref, push, set, get, child, update } from 'https://www.gstatic.com/firebasejs/9.6.3/firebase-database.js';
 import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.3/firebase-auth.js';
 
+import { populateFeelingScores } from './chart.js';
+
 // Get reference to the Firebase database
 const db = getDatabase(firebaseApp);
 const auth = getAuth(firebaseApp);
+const user = auth.currentUser;
+
+// Check user's authentication status
+auth.onAuthStateChanged((user) => {
+  if (!user) {
+      // User is not logged in, redirect to login page
+      window.location.href = 'login.html'; // Replace 'login.html' with the URL of your login page
+  }
+});
+
+auth.onAuthStateChanged((user) => {
+  const userRef = ref(db, `users/${user.uid}`);
+  get(userRef)
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const userData = snapshot.val();
+        const userName = userData.name;
+        console.log(userName);
+        const userNameHTML = document.getElementById("user-name");
+        userNameHTML.innerHTML = "Hello, " + userName;
+        
+      }
+    })
+    .catch((error) => {
+      console.error('Error getting user data:', error);
+    });
+})
 
 
-
-
+populateFeelingScores();
 
 // Form submission
 const feelingForm = document.getElementById('feeling-form');
@@ -21,7 +49,7 @@ feelingForm.addEventListener('submit', async (e) => {
   const score = feelingForm['score'].value;
 
   // Get current user
-  const user = auth.currentUser;
+
   
   if (user) {
     try {
@@ -55,6 +83,7 @@ feelingForm.addEventListener('submit', async (e) => {
         });
         console.log('Feeling score added successfully for today:', score);
         getFeelingScores();
+        populateFeelingScores();
       }
     } catch (error) {
       console.error('Error storing feeling score:', error);
@@ -70,8 +99,7 @@ var mydata = document.getElementById("mydata");
 function getFeelingScores() {
   auth.onAuthStateChanged((user) => {
     if (user) {
-        const usersName = document.getElementById("user-name");
-        usersName.innerHTML = "hello, " + user.email;
+
         const orderedRef = query(ref(db, `users/${user.uid}/feelingScores`), orderByChild('date'));
         
         onValue(orderedRef, (snapshot) => {
@@ -106,30 +134,54 @@ function getFeelingScores() {
 getFeelingScores();
 
 function addCommunityMessage(messageContent) {
-  const user = auth.currentUser;
-  if (user) {
-      const currentTime = new Date().toISOString(); // Get current time in ISO format
-      const message = {
-          message: messageContent,
-          time: currentTime,
-          email: user.email
-      };
+  return new Promise((resolve, reject) => {
+    const user = auth.currentUser;
+    if (user) {
+      // Retrieve user's name from the database
+      const userRef = ref(db, `users/${user.uid}`);
+      get(userRef)
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            const userData = snapshot.val();
+            const userName = userData.name;
 
-      const dbRef = ref(db, 'communityMessages');
-      push(dbRef, message)
-          .then(() => {
-              console.log('Message added successfully:', message);
-              // Optionally, you can show a success message or perform any other action
-              displayCommunityMessages();
-          })
-          .catch((error) => {
-              console.error('Error adding message:', error);
-              // Optionally, you can show an error message or handle the error in another way
-          });
-  } else {
+            const currentTime = new Date().toISOString(); // Get current time in ISO format
+            const message = {
+              message: messageContent,
+              time: currentTime,
+              name: userName
+            };
+
+            const dbRef = ref(db, 'communityMessages');
+            push(dbRef, message)
+              .then(() => {
+                console.log('Message added successfully:', message);
+                // Optionally, you can show a success message or perform any other action
+                displayCommunityMessages();
+                resolve(); // Resolve the promise
+              })
+              .catch((error) => {
+                console.error('Error adding message:', error);
+                // Optionally, you can show an error message or handle the error in another way
+                reject(error); // Reject the promise
+              });
+          } else {
+            console.error('User data not found.');
+            reject(new Error('User data not found.'));
+          }
+        })
+        .catch((error) => {
+          console.error('Error retrieving user data:', error);
+          reject(error);
+        });
+    } else {
       console.error('No user signed in.'); // Handle the case where there is no signed-in user
-  }
+      reject(new Error('No user signed in.')); // Reject the promise
+    }
+  });
 }
+
+
 
 document.addEventListener('DOMContentLoaded', () => {
   const messageForm = document.getElementById('message-form');
@@ -151,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch((error) => {
           console.error('Error adding community message:', error.message);
-          errorMessageContainer.textContent = 'Failed to add message. Please try again.';
+          errorMessageContainer.textContent += 'Failed to add message. Please try again.';
         });
     } else {
       errorMessageContainer.textContent = 'Please enter a message.';
@@ -183,21 +235,14 @@ function displayCommunityMessages() {
               const messageDiv = document.createElement('div');
               messageDiv.classList.add('message');
 
-              // const emailParagraph = document.createElement('p');
-              // emailParagraph.textContent = 'Email: ' + message.email;
-
               const messageParagraph = document.createElement('p');
               messageParagraph.textContent = 'Message: ' + message.message;
 
-              // const timeParagraph = document.createElement('p');
-              // timeParagraph.textContent = 'Time: ' + message.time;
-
+              const timeString = formatTime(message.time);
               const infoParagraph = document.createElement('p');
-              infoParagraph.textContent = message.email + ", " + message.time;
+              infoParagraph.textContent = message.name + ', ' + timeString;
 
-              // Append email, message, and time paragraphs to messageDiv
-              // messageDiv.appendChild(emailParagraph);
-              // messageDiv.appendChild(timeParagraph);
+              // Append message and time paragraphs to messageDiv
               messageDiv.appendChild(infoParagraph);
               messageDiv.appendChild(messageParagraph);
 
@@ -212,4 +257,18 @@ function displayCommunityMessages() {
       onlyOnce: true, // Fetch the messages only once
       errorHandling: 'ignore' // Ignore any errors while fetching messages
   });
+}
+
+// Function to format the time string
+function formatTime(isoString) {
+  const date = new Date(isoString);
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const amPm = hours >= 12 ? 'PM' : 'AM';
+  const formattedHours = hours % 12 || 12; // Convert 0 to 12 for 12-hour format
+  const formattedMinutes = String(minutes).padStart(2, '0'); // Add leading zero if needed
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const month = monthNames[date.getMonth()];
+  const day = date.getDate();
+  return `at ${formattedHours}:${formattedMinutes} ${amPm} on ${month} ${day}`;
 }

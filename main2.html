@@ -20,6 +20,8 @@
   <br/>
   <a href="index.html">Landing</a>
   <br/>
+  <a href="#" id="logout-btn">Logout</a>
+  <br/>
   <br/>
   <h3 id="user-name">Hello, </h3>
   <h2>How Are You Feeling?</h2>
@@ -46,6 +48,7 @@
     <label for="message">Your Message:</label><br>
     <textarea id="message" name="message" rows="4" cols="50" required></textarea><br>
     <button type="submit">Submit Message</button>
+    <div id="error-message"></div>
   </form>
 
   <p id="communitymessages" type="text">No community messages found!</p>
@@ -58,5 +61,6 @@
   
   <script type="module" src="scripts/chart.js"></script>
   <script type="module" src="scripts/main.js"></script>
+  <script type="module" src="scripts/logout.js"></script>
 </body>
 </html>

@@ -7,7 +7,7 @@ const db = getDatabase(firebaseApp);
 
 const feelingScores = [];
 
-function populateFeelingScores() {
+export function populateFeelingScores() {
     auth.onAuthStateChanged((user) => {
         if (user) {
             const orderedRef = query(ref(db, `users/${user.uid}/feelingScores`), orderByChild('date'));
@@ -84,4 +84,4 @@ function createChart() {
 
 }
 
-populateFeelingScores();
+// populateFeelingScores();

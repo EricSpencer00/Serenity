@@ -21,7 +21,7 @@ loginForm.addEventListener('submit', (e) => {
       const user = userCredential.user;
       console.log("User signed in:", user.uid);
       // Redirect to main.html
-      window.location.href = 'main.html';
+      window.location.href = 'main2.html';
     })
     .catch((error) => {
       const errorMessage = error.message;
