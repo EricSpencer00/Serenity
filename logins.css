@@ -1,0 +1,48 @@
+/* Apply a flex context to the body and center everything vertically and horizontally */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Container for all the elements */
+  .container {
+    text-align: center;
+    width: 100%; /* Set a max-width if you want to limit how wide this can get on larger screens */
+  }
+  
+  /* Style the form */
+  form {
+    background: white;
+    margin-top: 20px; /* Add space between the links and form */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+  }
+  
+  /* Style the input fields and the button */
+  input[type=email], input[type=password], button[type=submit] {
+    width: 90%; /* You can adjust this value */
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  /* Links styling */
+  nav a {
+    display: inline-block; /* Display links inline */
+    margin: 0 10px; /* Add space around links */
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  nav a:hover {
+    text-decoration: underline;
+  }
+  
