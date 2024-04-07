@@ -20,6 +20,7 @@
     color: #30d158; /* Serenity logo color */
     font-size: 24px;
     font-weight: bold;
+    max-width: 20%;
 }
 
 .nav-links .nav-link {
