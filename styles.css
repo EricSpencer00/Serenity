@@ -16,11 +16,16 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+img {
+    max-width: 100px;
+}
+
 .logo {
     color: #30d158; /* Serenity logo color */
     font-size: 24px;
     font-weight: bold;
     max-width: 20%;
+    max-width: 100px;
 }
 
 .nav-links .nav-link {
