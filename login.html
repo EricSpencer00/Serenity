@@ -7,6 +7,12 @@
 </head>
 <body>
   <h2>User Login</h2>
+  <a href="index.html">Landing</a>
+  <br/>
+  <a href="registration.html">Registration</a>
+  <br/>
+  <a href="main2.html">Main</a>
+  <br/>
   <form id="login-form">
     <label for="email">Email:</label><br>
     <input type="email" id="email" name="email" required><br>
@@ -14,7 +20,11 @@
     <input type="password" id="password" name="password" required><br>
     <button type="submit">Login</button>
   </form>
+  <div id="error-message"></div>
   
+
+
+
   <script type="module" src="scripts/firebase-config.js"></script>
   <script type="module" src="scripts/login.js"></script>
 </body>
