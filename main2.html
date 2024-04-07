@@ -4,70 +4,96 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>How Are You Feeling?</title>
-
   <style>
+    body {
+      background-color: #DFF6F0; /* Light pastel green background */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .navbar {
+      background-color: #B6EAD7; /* Slightly darker green for contrast */
+      width: 100%;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    .navbar a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #333;
+    }
+
+    #main-content {
+      display: flex;
+      justify-content: space-around;
+      width: 90%;
+    }
+
+    .column {
+      flex: 1;
+      margin: 20px;
+      padding: 10px;
+      background-color: #E8FFF5; /* Very light green for column backgrounds */
+      border-radius: 10px;
+    }
+
     #chart-container {
       height: 30vh;
-      width: 50vw;
+      width: 100%;
+    }
+
+    canvas {
+      max-width: 100%;
+      max-height: 100%;
     }
   </style>
-
+  <link rel="stylesheet" href="main2.css">
 </head>
 <body>
-  <a href="login.html">Login</a>
-  <br/>
-  <a href="registration.html">Registration</a>
-  <br/>
-  <a href="index.html">Landing</a>
-  <br/>
-  <a href="#" id="logout-btn">Logout</a>
-  <br/>
-  <br/>
+  <div class="navbar">
+    <a href="login.html">Login</a>
+    <a href="registration.html">Registration</a>
+    <a href="index.html">Landing</a>
+    <a href="#" id="logout-btn">Logout</a>
+  </div>
+
   <h3 id="user-name">Hello, </h3>
   <h2>How Are You Feeling?</h2>
-  
 
-  
-  <form id="feeling-form">
-    <label for="score">Select a score from 1 to 5:</label><br>
-    <select id="score" name="score" required>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-    </select><br>
-    <button type="submit">Submit</button>
-  </form>
+  <div id="main-content">
+    <div class="column">
+      <h2>Feeling Score Graph</h2>
+      <div id="chart-container">
+        <canvas id="myChart" width="30vh" height="30vh"></canvas>
+      </div>
+    </div>
 
-  <!-- <p id="mydata" type="text">No feeling scores found!</p> -->
+    <div class="column">
+      <h2>Today's Goals</h2>
+      <ul id="goals-list">
+        <!-- Existing goals will be added here dynamically -->
+      </ul>
+      <input type="text" id="new-goal-input" placeholder="Enter new goal">
+      <button id="add-goal-btn">Add Goal</button>
+    </div>
 
-  <body id="chart-container">
-    <canvas id="myChart" width="30vh" height="30vh"></canvas>
-  </body>
-  
+    <div class="column">
+      <h1>Community Messages</h1>
+      <form id="message-form">
+        <label for="message">Your Message:</label><br>
+        <textarea id="message" name="message" rows="4" cols="50" required></textarea><br>
+        <button type="submit">Submit Message</button>
+        <div id="error-message"></div>
+      </form>
+      <p id="communitymessages" type="text">No community messages found!</p>
+    </div>
+  </div>
 
-  <h2>Today's Goals</h2>
-  <ul id="goals-list">
-    <!-- Existing goals will be added here dynamically -->
-  </ul>
-  <input type="text" id="new-goal-input" placeholder="Enter new goal">
-  <button id="add-goal-btn">Add Goal</button>
-
-  <h1>Community Messages</h1>
-
-  <form id="message-form">
-    <label for="message">Your Message:</label><br>
-    <textarea id="message" name="message" rows="4" cols="50" required></textarea><br>
-    <button type="submit">Submit Message</button>
-    <div id="error-message"></div>
-  </form>
-
-  <p id="communitymessages" type="text">No community messages found!</p>
-
-
-  
-  
   <script type="module" src="scripts/goals.js"></script>
   <script type="module" src="scripts/chart.js"></script>
   <script type="module" src="scripts/main.js"></script>
