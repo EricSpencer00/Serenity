@@ -4,6 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>How Are You Feeling?</title>
+
+  <style>
+    #chart-container {
+      height: 30vh;
+      width: 50vw;
+    }
+  </style>
+
 </head>
 <body>
   <a href="login.html">Login</a>
@@ -42,8 +50,13 @@
 
   <p id="communitymessages" type="text">No community messages found!</p>
 
-
-  <!-- Import Firebase SDK -->
+  <body id="chart-container">
+    <canvas id="myChart" width="30vh" height="30vh"></canvas>
+  </body>
+  
+  
+  
+  <script type="module" src="scripts/chart.js"></script>
   <script type="module" src="scripts/main.js"></script>
 </body>
 </html>
